@@ -23,7 +23,6 @@ public class Application {
             System.out.println(numberFormatException.getMessage());
             return;
         }
-
         try {
             if (moneyValueAndDenominations == null) throw new AssertionError();
             MoneyExchanger moneyExchanger = new MoneyExchanger(moneyValueAndDenominations.getSecond());

@@ -8,7 +8,7 @@ public class ArgsConverter {
 
     public Pair<Integer, TreeSet<Integer>> getMoneyAndDenominations(String[] args) throws NumberFormatException, WrongInputData {
         if(args.length < 2){
-            System.out.println("Value of args has to be more than 2. First: MoneyValue. Second: list of denominations.");
+            System.out.println("Value of args has to be more than two. First: MoneyValue. Second: list of denominations.");
             throw new WrongInputData("Not enough parameters.");
         }
         int moneyValue = Integer.parseInt(args[0]);

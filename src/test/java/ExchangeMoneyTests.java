@@ -1,6 +1,5 @@
 import Exceptions.ImpossibleToExchange;
 import Exceptions.WrongInputData;
-import MyCollections.Pair;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -16,7 +15,7 @@ public class ExchangeMoneyTests {
     class MoneyExchangerTests {
         @Test
         @DisplayName("exchangeMethod")
-        void exchangeTest() throws WrongInputData, ImpossibleToExchange {
+        void exchangeTest(){
             Assertions.assertAll(
                     () -> {
                         TreeSet<Integer> denominationValues = new TreeSet<>();
@@ -70,6 +69,18 @@ public class ExchangeMoneyTests {
                     },
                     () -> {
                         TreeSet<Integer> denominationValues = new TreeSet<>();
+                        denominationValues.add(2);
+                        denominationValues.add(3);
+                        MoneyExchanger moneyExchanger = new MoneyExchanger(denominationValues);
+
+                        Map<Integer, Integer> checkerMap = new HashMap<>();
+                        checkerMap.put(2, 2);
+                        checkerMap.put(3, 32);
+                        Map<Integer, Integer> exchangedMoney = moneyExchanger.exchange(100);
+                        Assertions.assertEquals(checkerMap, exchangedMoney);
+                    },
+                    () -> {
+                        TreeSet<Integer> denominationValues = new TreeSet<>();
                         denominationValues.add(7);
                         denominationValues.add(2);
                         denominationValues.add(2);
@@ -89,7 +100,7 @@ public class ExchangeMoneyTests {
 
         @Test
         @DisplayName("exchangeTestExceptions")
-        void exchangeTestExceptions() throws WrongInputData, ImpossibleToExchange {
+        void exchangeTestExceptions(){
             Assertions.assertAll(
                     () -> {
                         TreeSet<Integer> denominationValues = new TreeSet<>();
@@ -100,11 +111,11 @@ public class ExchangeMoneyTests {
                     },
                     () -> {
                         TreeSet<Integer> denominationValues = new TreeSet<>();
-                        denominationValues.add(4);
+                        denominationValues.add(6);
                         denominationValues.add(3);
                         MoneyExchanger moneyExchanger = new MoneyExchanger(denominationValues);
 
-                        Assertions.assertThrowsExactly(ImpossibleToExchange.class, ()->{
+                        Assertions.assertThrowsExactly(ImpossibleToExchange.class, () -> {
                             Map<Integer, Integer> exchangedMoney = moneyExchanger.exchange(17);
                         });
                     });
@@ -112,29 +123,29 @@ public class ExchangeMoneyTests {
     }
 
     @Nested
-    @DisplayName("ArgsConverterTestClass")
-    class ArgsConverterTestClass{
+    @DisplayName("ConverterArgsTestClass")
+    class ConverterArgsTestClass {
         @Test
         @DisplayName("getMoneyAndDenominations")
         void getMoneyAndDenominations() {
             Assertions.assertAll(
-                    ()->{
+                    () -> {
                         ArgsConverter argsConverter = new ArgsConverter();
-                        Assertions.assertThrowsExactly(NumberFormatException.class, ()->{
+                        Assertions.assertThrowsExactly(NumberFormatException.class, () -> {
                             argsConverter.getMoneyAndDenominations(new String[]{"asd", "2"});
                         });
 
                     },
-                    ()->{
+                    () -> {
                         ArgsConverter argsConverter = new ArgsConverter();
-                        Assertions.assertThrowsExactly(NumberFormatException.class, ()->{
+                        Assertions.assertThrowsExactly(NumberFormatException.class, () -> {
                             argsConverter.getMoneyAndDenominations(new String[]{"123", "23", "2["});
                         });
 
                     },
-                    ()->{
+                    () -> {
                         ArgsConverter argsConverter = new ArgsConverter();
-                        Assertions.assertThrowsExactly(WrongInputData.class, ()->{
+                        Assertions.assertThrowsExactly(WrongInputData.class, () -> {
                             argsConverter.getMoneyAndDenominations(new String[]{"123"});
                         });
 
