@@ -25,16 +25,13 @@ public class MoneyExchanger {
     }
 
     private ExchangeStatus makeExchangeAndInsertInMap(int totalSum){
-
         for (int denomination : denominationValues) {
             int newMoneyValueStep = totalSum - denomination;
             if (newMoneyValueStep > 0) {
-                exchangedSum.put(denomination, exchangedSum.get(denomination) + 1);
                 ExchangeStatus operationResult = makeExchangeAndInsertInMap(newMoneyValueStep);
                 if (operationResult.equals(ExchangeStatus.EXCHANGED)) {
+                    exchangedSum.put(denomination, exchangedSum.get(denomination) + 1);
                     return ExchangeStatus.EXCHANGED;
-                } else if (operationResult.equals(ExchangeStatus.BAD_INSERT)) {
-                    exchangedSum.put(denomination, exchangedSum.get(denomination) - 1);
                 }
             } else if (newMoneyValueStep == 0) {
                 exchangedSum.put(denomination, exchangedSum.get(denomination) + 1);
