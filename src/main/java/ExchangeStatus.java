@@ -1,3 +1,3 @@
 public enum ExchangeStatus {
-    GOOD_INSERT, BAD_INSERT, EXCHANGED
+    BAD_INSERT, EXCHANGED
 }
