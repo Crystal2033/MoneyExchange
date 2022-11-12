@@ -18,13 +18,13 @@ public class MoneyExchanger {
     }
 
     public Map<Integer, Integer> exchange(int totalSum) throws ImpossibleToExchange {
-        if (!makeExchangeAndInsertInMap(totalSum).equals(ExchangeStatus.EXCHANGED)) {
+        if (makeExchangeAndInsertInMap(totalSum).equals(ExchangeStatus.IMPOSSIBLE_TO_EXCHANGE)) {
             throw new ImpossibleToExchange("Impossible to exchange your money value.");
         }
         return exchangedSum;
     }
 
-    private ExchangeStatus makeExchangeAndInsertInMap(int totalSum){
+    private ExchangeStatus makeExchangeAndInsertInMap(int totalSum) {
         for (int denomination : denominationValues) {
             int newMoneyValueStep = totalSum - denomination;
             if (newMoneyValueStep > 0) {
@@ -38,6 +38,6 @@ public class MoneyExchanger {
                 return ExchangeStatus.EXCHANGED;
             }
         }
-        return ExchangeStatus.BAD_INSERT;
+        return ExchangeStatus.IMPOSSIBLE_TO_EXCHANGE;
     }
 }
